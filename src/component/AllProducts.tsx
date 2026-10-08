@@ -10,7 +10,7 @@ const getAllProducts = async()=>{
 const AllProducts = async() => {
     const allProducts = await getAllProducts()
     return (
-         <div id="price-increase" className='mt-10'>
+         <div id="all-products" className='mt-10'>
         <div className='max-w-7xl w-full mx-auto p-3 '>
             <h1 className='text-2xl font-bold'>সব পণ্য</h1>
             <p className='text-gray-500 '>মোট {new Intl.NumberFormat('bn-bd').format(allProducts.length)}টি পণ্য দেখানো হচ্ছে</p>

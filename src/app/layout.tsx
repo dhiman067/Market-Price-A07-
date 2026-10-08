@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Serif_Bengali } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/component/Navbar";
+import Footer from "@/component/Footer";
 
 const geistSans = Noto_Serif_Bengali({
   
@@ -24,10 +25,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-[#F3FBF4]">
         <Navbar></Navbar>
-       <main>
+       <main className="flex-1">
          {children}
        </main>
-        </body>
+       <Footer />
+       </body>
     </html>
   );
 }

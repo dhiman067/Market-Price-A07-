@@ -11,7 +11,7 @@ const PriceDecreasedProducts = async() => {
     const products = await getPriceDecreasedProducts()
     const priceDecreasedProducts = products.filter(p=> p.change?.dir==="down").sort((a,b)=>a.change?.pct-b.change?.pct).slice(0,6)
     return (
-          <div id="price-increase" className='mt-10'>
+          <div className='mt-10'>
         <div className='max-w-7xl w-full mx-auto p-3 flex gap-1 items-center'>
             <p className='text-green-600 text-xl'>▼</p>
             <h1 className='text-2xl font-bold'>আজ দাম কমেছে</h1>
