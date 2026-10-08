@@ -33,13 +33,13 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
                         {individualCategory.nameBn}
                     </h1>
                     <p className="mt-2 inline-flex rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800">
-                        {categoryProducts.length}টি পণ্যের আজকের দাম ও পরিবর্তন
+                        {new Intl.NumberFormat('bn-bd').format(categoryProducts.length)}টি পণ্যের আজকের দাম ও পরিবর্তন
                     </p>
                 </div>
             </section>
             <div className="flex justify-between p-7 items-center">
                 <p className="text-2xl text-gray-500">
-                    মোট {categoryProducts.length}টি পণ্য দেখানো হচ্ছে
+                    মোট {new Intl.NumberFormat('bn-bd').format(categoryProducts.length)}টি পণ্য দেখানো হচ্ছে
                 </p>
                 <select defaultValue="Large" className="rounded-2xl select select-lg">
                     <option disabled={true}>Large</option>

@@ -32,7 +32,7 @@ const Banner = () => {
           {/* Call to Action Button */}
           <div className="pt-1 sm:pt-2">
             <Link
-              href="/products"
+              href="#price-increase"
               className="inline-block rounded-lg bg-[#008a45] px-5 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-[#007339] active:scale-95 sm:px-6"
             >
               সব পণ্য দেখুন

@@ -12,8 +12,8 @@ const products = await getPriceIncreasedProducts()
 const priceIncreasedProducts = products.filter(p=> p.change?.dir === "up").sort((a,b)=>b.change?.pct-a.change?.pct).slice(0,6)
 
     return (
-        <div className='mt-10'>
-        <div className='max-w-7xl w-full mx-auto p-3 flex gap-2 items-center'>
+        <div id="price-increase" className='mt-10'>
+        <div className='max-w-7xl w-full mx-auto p-3 flex gap-1 items-center'>
             <p className='text-red-600 text-xl'>▲</p>
             <h1 className='text-2xl font-bold'>আজ দাম বেড়েছে</h1>
         </div>
