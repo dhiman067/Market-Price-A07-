@@ -1,10 +1,9 @@
 import { IcategoryProducts } from "@/type";
 import CategoryProduct from "./Category-Product";
+import { fetchBazardorData } from "@/lib/bazardor-api";
 
 const getPriceDecreasedProducts = async()=>{
-    const res = await fetch('https://api.api-store.workers.dev/api/bazardor/products')
-    const data:IcategoryProducts[] =  await res.json()
-    return data
+    return fetchBazardorData<IcategoryProducts[]>('/api/bazardor/products')
 }
 
 const PriceDecreasedProducts = async() => {

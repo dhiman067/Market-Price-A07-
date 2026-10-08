@@ -1,15 +1,18 @@
 import { IcategoryProducts } from '@/type';
 import Link from 'next/link';
+import { connection } from 'next/server';
 import React from 'react';
+import { Suspense } from 'react';
+import { fetchBazardorData } from '@/lib/bazardor-api';
 
 const getProductDetails = async(id:number)=>{
-    const res = await fetch(`https://api.api-store.workers.dev/api/bazardor/products/${id}`)
-    const data:IcategoryProducts = await res.json()
-    return data
+    return fetchBazardorData<IcategoryProducts>(`/api/bazardor/products/${id}`)
 }
 
-const ProductDetailsPage = async({params}:{ params: Promise<{ id: number }> } ) => {
+const ProductDetailsContent = async({params}:{ params: Promise<{ id: number }> } ) => {
 const {id} = await params
+await connection()
+
 const productDetails = await getProductDetails(id)
 
 
@@ -169,5 +172,11 @@ const InBangla = new Intl.NumberFormat('bn-bd').format
         </div>
     );
 };
+
+const ProductDetailsPage = ({ params }: { params: Promise<{ id: number }> }) => (
+    <Suspense fallback={<main className="mx-auto min-h-96 w-full max-w-7xl px-4" aria-hidden="true" />}>
+        <ProductDetailsContent params={params} />
+    </Suspense>
+);
 
 export default ProductDetailsPage;

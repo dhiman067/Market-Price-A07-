@@ -1,22 +1,23 @@
 import CategoryProduct from "@/component/Category-Product";
 import { Icategories, IcategoryProducts } from "@/type";
+import { connection } from "next/server";
+import { Suspense } from "react";
+import { fetchBazardorData } from "@/lib/bazardor-api";
 
 const getProductByCategory = async (slug: string) => {
-    const res = await fetch(`https://api.api-store.workers.dev/api/bazardor/products?category=${slug}`)
-    const data: IcategoryProducts[] = await res.json()
-    return data
+    return fetchBazardorData<IcategoryProducts[]>(`/api/bazardor/products?category=${encodeURIComponent(slug)}`)
 
 }
 
 const getIndividualCategory = async (slug: string) => {
-    const res = await fetch(`https://api.api-store.workers.dev/api/bazardor/categories/${slug}`)
-    const data = await res.json()
-    return data
+    return fetchBazardorData<Icategories>(`/api/bazardor/categories/${encodeURIComponent(slug)}`)
 }
 
-const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
+const CategoryPageContent = async ({ params }: { params: Promise<{ slug: string }> }) => {
 
     const { slug } = await params
+    await connection()
+
     const categoryProducts = await getProductByCategory(slug)
     const individualCategory: Icategories = await getIndividualCategory(slug)
 
@@ -57,5 +58,11 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
         </main>
     );
 };
+
+const page = ({ params }: { params: Promise<{ slug: string }> }) => (
+    <Suspense fallback={<main className="mx-auto min-h-96 w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10" aria-hidden="true" />}>
+        <CategoryPageContent params={params} />
+    </Suspense>
+);
 
 export default page;
