@@ -1,4 +1,5 @@
 import { IcategoryProducts } from '@/type';
+import Link from 'next/link';
 
 const CategoryProduct = ({ categoryProduct }: { categoryProduct: IcategoryProducts }) => {
     const changeDirection = categoryProduct.change?.dir;
@@ -14,6 +15,7 @@ const CategoryProduct = ({ categoryProduct }: { categoryProduct: IcategoryProduc
             : '•';
 
     return (
+        <Link href={`/productDetails/${categoryProduct.id}`}>
         <article className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5">
             <div className="flex items-center gap-3">
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-green-50 text-3xl sm:h-16 sm:w-16 sm:text-4xl">
@@ -43,6 +45,7 @@ const CategoryProduct = ({ categoryProduct }: { categoryProduct: IcategoryProduc
                 </span>
             </div>
         </article>
+        </Link>
     );
 };
 
