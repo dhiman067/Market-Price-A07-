@@ -1,8 +1,10 @@
+
 import CategoryProduct from "@/component/Category-Product";
 import { Icategories, IcategoryProducts } from "@/type";
 import { connection } from "next/server";
 import { Suspense } from "react";
 import { fetchBazardorData } from "@/lib/bazardor-api";
+import SortingDropdown from "@/component/SortingDropdown";
 
 const getProductByCategory = async (slug: string) => {
     return fetchBazardorData<IcategoryProducts[]>(`/api/bazardor/products?category=${encodeURIComponent(slug)}`)
@@ -21,7 +23,7 @@ const CategoryPageContent = async ({ params }: { params: Promise<{ slug: string 
     const categoryProducts = await getProductByCategory(slug)
     const individualCategory: Icategories = await getIndividualCategory(slug)
 
-
+   
 
     return (
         <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
@@ -38,23 +40,12 @@ const CategoryPageContent = async ({ params }: { params: Promise<{ slug: string 
                     </p>
                 </div>
             </section>
-            <div className="flex justify-between p-7 items-center">
-                <p className="text-2xl text-gray-500">
-                    মোট {new Intl.NumberFormat('bn-bd').format(categoryProducts.length)}টি পণ্য দেখানো হচ্ছে
-                </p>
-                <select defaultValue="Large" className="rounded-2xl select select-lg">
-                    <option disabled={true}>Large</option>
-                    <option>Large Apple</option>
-                    <option>Large Orange</option>
-                    <option>Large Tomato</option>
-                </select>
+               
+            <div >
+                <SortingDropdown categoryProducts={categoryProducts}></SortingDropdown>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {
-                    categoryProducts.map(cp => <CategoryProduct key={cp.id} categoryProduct={cp}></CategoryProduct>)
-                }
-            </div>
+            
         </main>
     );
 };
