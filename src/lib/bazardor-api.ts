@@ -1,6 +1,6 @@
 import { cacheLife } from "next/cache";
 
-const apiBaseUrl = "https://api.abcz.workers.dev";
+const apiBaseUrl = "https://api.api-store.workers.dev";
 
 export async function fetchBazardorData<T>(path: string): Promise<T> {
   "use cache";
