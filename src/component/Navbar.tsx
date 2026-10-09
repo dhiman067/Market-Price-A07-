@@ -18,7 +18,7 @@ import { signOut, useSession } from '@/lib/auth-client';
 
 const Navbar = ({catagories,allProducts}:{catagories:Icategories[],allProducts:IcategoryProducts[]}) => {
 const {data:session} = useSession()
-console.log(session);
+
 
     const date =  new Date().toLocaleDateString("bn-BD",{
         dateStyle:"full"

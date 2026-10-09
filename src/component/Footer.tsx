@@ -5,8 +5,8 @@ import footerLogo from '../assets/logo-icon.png';
 
 const Footer = () => {
     return (
-        <footer className="mt-16 border-t border-[#e1e9e2] bg-[#f8faf9]">
-            <div className="mx-auto grid max-w-7xl gap-10 px-4 py-10 sm:px-6 md:grid-cols-3 md:py-12">
+        <footer className="border-t border-[#e1e9e2] bg-[#f8faf9]">
+            <div className="mx-auto grid max-w-7xl gap-10 px-4 py-10 sm:px-6 md:grid-cols-3 ">
                 <div>
                     <Link href="/" className="inline-flex items-center gap-3">
                         <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-[#008a45]">
