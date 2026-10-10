@@ -7,10 +7,7 @@ import { Icategories, IcategoryProducts } from '@/type';
 import NavCategory from './Nav-Category';
 import MarqueeText from 'react-marquee-text';
 import { signOut, useSession } from '@/lib/auth-client';
-
-
-
-
+import { toast, Zoom } from 'react-toastify';
 
 
 
@@ -70,7 +67,17 @@ const {data:session} = useSession()
       </Link>
       <button
         type="button"
-        onClick={() => signOut()}
+        onClick={() => {signOut();toast.success('সাইন আউট সফল হয়েছে।', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Zoom,
+            });}}
         className="px-4 py-3 text-left text-sm font-medium text-red-600 hover:bg-red-50"
       >
         সাইন আউট

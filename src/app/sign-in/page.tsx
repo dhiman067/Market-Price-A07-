@@ -2,8 +2,13 @@
 import { signIn } from "@/lib/auth-client";
 import { Check, LogoGithub, LogoGooglePlay } from "@gravity-ui/icons";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
+import { redirect } from "next/navigation";
+import { useState } from "react";
+import { toast, Zoom } from "react-toastify";
+
 
 const SignInPage = () => {
+    const [errorMessage, setErrorMessage] = useState('')
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -17,32 +22,63 @@ const SignInPage = () => {
             email: data.email,
             password: data.password,
             rememberMe: true,
-            callbackURL: "/"
+           
+
         })
 
+        
+        
+        if(!error){
+            toast.success('সাইন ইন সফল হয়েছে।', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Zoom,
+            });
+            redirect('/')
+        }
+        else{
+            setErrorMessage(error.message as string)
+
+        }
+        
+        
     };
 
 const handleGoogleSignIn = async() =>{
       const googleSignInData = await signIn.social({
         provider:'google'
       })
+      
   }
 
   const handleGithubSignIn = async()=>{
     const githubSingInData = await signIn.social({
       provider:'github'
     })
+   
   }
 
 
 
     return (
-        <div className=" w-full max-w-7xl flex flex-col items-center justify-center  m-auto lg:pt-10">
-            <div className="flex flex-col items-center gap-2 mb-3">
-                <h1 className="text-3xl font-bold">সাইন ইন</h1>
-                <p className="text-gray-500">বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।</p>
+        <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-4 py-10 sm:px-6 lg:py-16">
+            <div className="mb-6 flex w-full max-w-md flex-col items-center gap-2 text-center">
+                <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">সাইন ইন</h1>
+                <p className="text-sm leading-6 text-gray-600 sm:text-base">বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।</p>
             </div>
-            <Form className="flex pt-10 w-100 flex-col gap-4 bg-white p-4 rounded-2xl" onSubmit={onSubmit}>
+            <Form className="flex w-full max-w-md flex-col gap-5 rounded-2xl border border-[#e1e9e2] bg-white px-5 py-6 shadow-lg shadow-green-950/5 sm:px-8 sm:py-8" onSubmit={onSubmit}>
+                <p
+                    role="alert"
+                    className={errorMessage ? "rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700" : "hidden"}
+                >
+                    {errorMessage}
+                </p>
                 <TextField
                     isRequired
                     name="email"
@@ -54,7 +90,7 @@ const handleGoogleSignIn = async() =>{
                         return null;
                     }}
                 >
-                    <Label className="text-xl">ইমেইল</Label>
+                    <Label className="text-base font-semibold text-gray-800">ইমেইল</Label>
                     <Input placeholder="....com" />
                     <FieldError />
                 </TextField>
@@ -76,13 +112,13 @@ const handleGoogleSignIn = async() =>{
                         return null;
                     }}
                 >
-                    <Label className="text-xl">পাসওয়ার্ড</Label>
+                    <Label className="text-base font-semibold text-gray-800">পাসওয়ার্ড</Label>
                     <Input placeholder="●●●●●" />
                     <Description>সঠিক পাসওয়ার্ড দিন</Description>
                     <FieldError />
                 </TextField>
-                <div className="flex py-3 justify-center gap-2">
-                    <Button className="btn w-full rounded-xl bg-green-600 text-white" type="submit">
+                <div className="flex w-full justify-center pt-1">
+                    <Button className="btn w-full rounded-xl bg-[#008a45] py-3 font-semibold text-white shadow-sm transition-colors hover:bg-[#00763b]" type="submit">
 
                         সাইন ইন
                     </Button>
@@ -92,9 +128,9 @@ const handleGoogleSignIn = async() =>{
                     <span>অথবা</span>
                     <span className="h-px flex-1 bg-gray-300" />
                 </div>
-                <div className="flex gap-2 justify-center">
-                    <Button onClick={handleGoogleSignIn} className="btn bg-none"> <LogoGooglePlay /> Google দিয়ে এগিয়ে যান</Button>
-                    <Button onClick={handleGithubSignIn} className="btn bg-none"> <LogoGithub />Github দিয়ে এগিয়ে যান</Button>
+                <div className="flex w-full flex-col justify-center gap-3 sm:flex-row">
+                    <Button onClick={handleGoogleSignIn} className="btn w-full flex-1 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 transition-colors hover:border-gray-300 hover:bg-gray-50"> <LogoGooglePlay /> Google দিয়ে এগিয়ে যান</Button>
+                    <Button onClick={handleGithubSignIn} className="btn w-full flex-1 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 transition-colors hover:border-gray-300 hover:bg-gray-50"><LogoGithub />Github দিয়ে এগিয়ে যান</Button>
                 </div>
             </Form>
         </div>

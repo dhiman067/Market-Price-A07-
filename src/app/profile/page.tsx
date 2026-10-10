@@ -1,6 +1,7 @@
 'use client'
 import {  updateUser, useSession } from "@/lib/auth-client";
 import { Button, Input, Label, TextField } from "@heroui/react";
+import { toast, Zoom } from "react-toastify";
 
 const ProfilePage = () => {
      const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -14,8 +15,19 @@ const ProfilePage = () => {
 
     
     await updateUser({
-        name:data.name
+        name:data.name,
     })
+    toast.success('নাম পরিবর্তন সফল হয়েছে।', {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Zoom,
+            });
 }
 
 
